@@ -7,9 +7,9 @@ Installation for ELK stack on GCP with ansible
 - GCP Account
 
 ### Infra provisioning
-Create a JSON Key for GCP account and put inside infra/ folder
-Add name of GCP project and JSON key in infra/main.tf
-Choose number of instances and put your ssh-key.
+- Create a JSON Key for GCP account and put inside infra/ folder
+- Add name of GCP project and JSON key in infra/main.tf
+- Choose number of instances and put your ssh-key.
 
 ```
 cd infra/
