@@ -1,0 +1,30 @@
+---
+
+- hosts: elasticsearch
+  become: true
+  roles:
+    - { role: elasticsearch, es_instance_name: "node1", es_heap_size: "1g", es_config: {network.host: "0.0.0.0", discovery.zen.ping.unicast.hosts: "IP:9300", http.port: 9200, transport.tcp.port: 9300, node.data: false, node.master: true } }
+    - { role: elasticsearch, es_instance_name: "node2", es_heap_size: "1g", es_config: {network.host: "0.0.0.0", discovery.zen.ping.unicast.hosts: "IP:9300", http.port: 9200, transport.tcp.port: 9300, node.data: true, node.master: true } }
+    - { role: elasticsearch, es_instance_name: "node2", es_heap_size: "1g", es_config: {network.host: "0.0.0.0", discovery.zen.ping.unicast.hosts: "IP:9300", http.port: 9200, transport.tcp.port: 9300, node.data: true, node.master: false } }
+  vars:
+    es_cluster_name: clusterName
+
+- hosts: logstash
+  become: true
+  roles:
+    - role: logstash
+  vars:
+    logstash_syslog_port: 5042
+    logstash_localsyslog_port: 5000
+    elastic_nodes: "http://IP:9200, http://IP:9200"
+
+
+- hosts: kibana 
+  become: true 
+  roles:
+  - role: kibana
+    kibana_config:
+        server.name: "{{ inventory_hostname }}"
+        server.port: 5601
+        server.host: "ENTER IP"
+        elasticsearch.hosts: "http://IP:9200, http://IP:9200"

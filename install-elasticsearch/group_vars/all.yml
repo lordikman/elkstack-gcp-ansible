@@ -1,0 +1,5 @@
+---
+install_elasticsearch_xpack: false
+install_kibana_xpack: false
+install_logstash_xpack: false
+

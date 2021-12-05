@@ -1,0 +1,10 @@
+[elasticsearch]
+ELK-1 ansible_ssh_host=
+ELK-2 ansible_ssh_host=
+ELK-3 ansible_ssh_host=
+
+[logstash]
+ELK-4 ansible_ssh_host=
+
+[kibana]
+ELK-5 ansible_ssh_host=
