@@ -1,4 +1,8 @@
 ---
+- hosts: all
+  become: true
+  roles:
+    - { role: common, when: ansible_os_family == 'RedHat' }
 
 - hosts: elasticsearch
   become: true
@@ -14,10 +18,13 @@
   roles:
     - role: logstash
   vars:
-    logstash_syslog_port: 5042
-    logstash_localsyslog_port: 5000
-    elastic_nodes: "http://IP:9200, http://IP:9200"
-
+    logstash_listen_port_beats: 5042
+    logstash_elasticsearch_hosts:
+      - http://IP:9200
+      - http://IP:9200
+    logstash_install_plugins:
+      - logstash-input-beats
+      - logstash-filter-multiline
 
 - hosts: kibana 
   become: true 
